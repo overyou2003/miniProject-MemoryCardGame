@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded' , () => {
     const cards = document.querySelectorAll('.card')
     let disableDeck = false;
-
+    let matchedCard
     cards.forEach(card => {
     
         card.addEventListener('click' , flipCard)
@@ -27,10 +27,14 @@ document.addEventListener('DOMContentLoaded' , () => {
 
     function matchCards(img1 , img2) {
         if (img1 === img2) {
+            matchedCard++
+            if (matchedCard == 8) {
+                shuffleCard();
+            }
             cardOne.removeEventListener('click' , flipCard)
             cardTwo.removeEventListener('click' , flipCard)
             cardOne = cardTwo = ""
-            return disableDeck = true
+            return disableDeck = false
         }
        
         setTimeout(() => {
@@ -44,5 +48,10 @@ document.addEventListener('DOMContentLoaded' , () => {
             cardOne = cardTwo = ''
             disableDeck = false
         }, 1200)
+    }
+
+    function shuffleCard() {
+        matchedCard = 0
+        
     }
 })
