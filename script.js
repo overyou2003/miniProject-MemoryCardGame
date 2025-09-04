@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded' , () => {
         if (img1 === img2) {
             return console.log('card matched!')
         }
-        return console.log('card not matched!')
+       
+        cardOne.classList.add('shake')
+        cardTwo.classList.add('shake')
     }
 })
