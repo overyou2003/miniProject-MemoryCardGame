@@ -10,8 +10,13 @@ body {
     
 }
 
+.text-title {
+    background: rgba(10, 0, 0, 0.158);
+    padding: 5px;
+    border-radius: 10px;
+}
+
 .rov {
-    background-color: white;
     height: fit-content;
 }
 
@@ -29,7 +34,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(135deg , #b9170b , #ffb429);
+    background: linear-gradient(135deg , #95acf7 , #0b0564);
 }
 
 .card .back-view img {
@@ -43,6 +48,7 @@ body {
     background: white;
     padding: 25px;
     border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .cards {
@@ -70,6 +76,8 @@ body {
 .cards .card .view {
     width: 100%;
     height: 100%;
+    user-select: none;
+    pointer-events: none;
     position: absolute;
     background: #fff;
     border-radius: 10px;
@@ -81,18 +89,18 @@ body {
 
 .card .front-view span {
     font-size: 40px;
-    color: rgb(247, 90, 51);
+    color: rgb(57, 101, 248);
 }
 
 .card .back-view {
     transform: rotateY(-180deg);
 }
 
-.card:hover .back-view {
+.card.flip .back-view {
     transform: rotateY(0);
 }
 
-.card:hover .front-view {
+.card.flip .front-view {
     transform: rotateY(180deg);
 }
 
