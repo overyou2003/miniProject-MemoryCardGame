@@ -52,23 +52,31 @@ body {
 .cards .card .view {
     width: 100%;
     height: 100%;
+    position: absolute;
     background: #fff;
     border-radius: 10px;
-    position: absolute;
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    backface-visibility: hidden;  
     transition: transform 0.25s linear;
 }
 
-.card .back-view {
-    transform: rotateY(-180deg);
-}
 
 .card .front-view span {
     font-size: 40px;
     color: rgb(64, 135, 243);
 }
 
+.card .back-view {
+    transform: rotateY(-180deg);
+}
 
+.card:hover .back-view {
+    transform: rotateY(0);
+}
+
+.card:hover .front-view {
+    transform: rotateY(180deg);
+}
 
 
 
