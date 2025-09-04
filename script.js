@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded' , () => {
     const cards = document.querySelectorAll('.card')
     let disableDeck = false;
-    let matchedCard
+    let matchedCard = 0
     cards.forEach(card => {
-    
         card.addEventListener('click' , flipCard)
     })
 
@@ -28,9 +27,13 @@ document.addEventListener('DOMContentLoaded' , () => {
     function matchCards(img1 , img2) {
         if (img1 === img2) {
             matchedCard++
-            if (matchedCard == 8) {
-                shuffleCard();
+            console.log(matchedCard)
+            if (matchedCard === 8) {
+                setTimeout(() => {
+                    return shuffleCard();
+                },500)
             }
+            console.log('hey')
             cardOne.removeEventListener('click' , flipCard)
             cardTwo.removeEventListener('click' , flipCard)
             cardOne = cardTwo = ""
@@ -51,7 +54,16 @@ document.addEventListener('DOMContentLoaded' , () => {
     }
 
     function shuffleCard() {
+        console.log('you finished')
         matchedCard = 0
+        cardOne = cardTwo = ''
+        disableDeck = false
+        let arr = [1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,]
+        cards.forEach(card => {
+            card.classList.remove('flip')
+            card.addEventListener('click' , flipCard)
+        })
+
         
     }
 })
