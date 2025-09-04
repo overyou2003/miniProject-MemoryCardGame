@@ -59,8 +59,11 @@ document.addEventListener('DOMContentLoaded' , () => {
         cardOne = cardTwo = ''
         disableDeck = false
         let arr = [1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,]
-        cards.forEach(card => {
+        arr.sort(() => Math.random() > 0.5 ? 1 : -1)
+        cards.forEach((card,index) => {
             card.classList.remove('flip')
+            let imgTag = card.querySelector('img');
+            imgTag.src = `images_hero/img-${arr[index]}.png`
             card.addEventListener('click' , flipCard)
         })
 
