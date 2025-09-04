@@ -7,16 +7,34 @@
 }
 
 body {
+    
+}
+
+.rov {
+    background-color: white;
+    height: fit-content;
+}
+
+.title {
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.container {
     display: flex;
+    flex-direction: column; 
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: rgb(161, 161, 212);
+    background: linear-gradient(135deg , #b9170b , #ffb429);
 }
 
 .card .back-view img {
-    max-width: 45px;
-    cursor: pointer;
+    max-width: 90%;
+    border-radius: 10px;
 }
  
 .wrapper {
@@ -63,7 +81,7 @@ body {
 
 .card .front-view span {
     font-size: 40px;
-    color: rgb(64, 135, 243);
+    color: rgb(247, 90, 51);
 }
 
 .card .back-view {
