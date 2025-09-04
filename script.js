@@ -2,9 +2,7 @@ document.addEventListener('DOMContentLoaded' , () => {
     const cards = document.querySelectorAll('.card')
     let disableDeck = false;
     let matchedCard = 0
-    cards.forEach(card => {
-        card.addEventListener('click' , flipCard)
-    })
+    
 
     
     let cardOne , cardTwo
@@ -63,10 +61,10 @@ document.addEventListener('DOMContentLoaded' , () => {
         cards.forEach((card,index) => {
             card.classList.remove('flip')
             let imgTag = card.querySelector('img');
-            imgTag.src = `images_hero/img-${arr[index]}.png`
+            imgTag.src = `images_hero/pic${arr[index]}.jpg`
             card.addEventListener('click' , flipCard)
         })
-
-        
     }
+    
+    shuffleCard()
 })
