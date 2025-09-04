@@ -14,7 +14,7 @@ body {
     background: rgb(161, 161, 212);
 }
 
-.back-view img {
+.card .back-view img {
     max-width: 45px;
     cursor: pointer;
 }
@@ -42,12 +42,11 @@ body {
 
 .cards .card {
     cursor: pointer;
+    position: relative;
+    perspective: 800px;
+    transform-style: preserve-3d;
     height: calc(100% / 4 - 10px);
     width: calc(100% / 4 - 10px);
-}
-
-.card .front-view {
-    display: none;
 }
 
 .cards .card .view {
@@ -55,7 +54,21 @@ body {
     height: 100%;
     background: #fff;
     border-radius: 10px;
+    position: absolute;
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: transform 0.25s linear;
 }
+
+.card .back-view {
+    transform: rotateY(-180deg);
+}
+
+.card .front-view span {
+    font-size: 40px;
+    color: rgb(64, 135, 243);
+}
+
+
+
 
 
