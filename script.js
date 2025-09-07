@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded' , () => {
             timeleft--
             console.log(timeleft)
             countDownEle.textContent = timeleft
-            if (timeleft == 50) {
+            if (timeleft == 0) {
                 clearInterval(timer);
                 alert("Time out, you lose!");
                 startGame = true;
@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded' , () => {
             disableDeck = true
             let cardOneImg = cardOne.querySelector("img").src
             let cardTwoImg = cardTwo.querySelector("img").src
-
             matchCards(cardOneImg , cardTwoImg)
         } 
     }
@@ -56,7 +55,8 @@ document.addEventListener('DOMContentLoaded' , () => {
     function matchCards(img1 , img2) {
         if (img1 === img2) {
             matchedCard++
-            console.log(matchedCard)
+            const pointCountEle = document.getElementById('point-count')
+            pointCountEle.textContent = matchedCard
             if (matchedCard === 8) {
                 setTimeout(() => {
                     return shuffleCard();
