@@ -40,6 +40,8 @@ body { }
     max-width: 90%;
     border-radius: 10px;
 }
+
+
  
 .wrapper {
     height: fit-content ;
@@ -68,11 +70,18 @@ body { }
     position: relative;
     perspective: 800px;
     transform-style: preserve-3d;
-
     flex: 1 0 calc(25% - 10px); 
     aspect-ratio: 1 / 1;        
     max-width: 100px;
 }
+/* ค่าเดิมของคุณ = 4 คอลัมน์ */
+.cards.cols-4 .card { flex: 1 0 calc(25% - 10px); }
+
+/* 5 คอลัมน์ */
+.cards.cols-5 .card { flex: 1 0 calc(20% - 10px); }
+
+/* 6 คอลัมน์ */
+.cards.cols-6 .card { flex: 1 0 calc(16.6667% - 10px); }
 
 .cards .card .view {
     width: 100%;

@@ -12,11 +12,18 @@ document.addEventListener('DOMContentLoaded' , () => {
             
             // ใส่ selected ให้ปุ่มที่ถูกกด
             btn.classList.add('selected')
+            // selected mode 
             if (index === 0) {
                 console.log('this is easy one')
+                applyMode('easy')
+                
             } else if (index === 1) {
                 console.log('this is normal one')
-            } else console.log('this is hard one')
+                applyMode('normal')
+            } else {
+                console.log('this is hard one')
+                applyMode('hard')
+            }
         })
     })
     
@@ -103,7 +110,6 @@ document.addEventListener('DOMContentLoaded' , () => {
     }
 
     function shuffleCard() {
-
         console.log('play game')
         matchedCard = 0
         cardOne = cardTwo = ''
@@ -116,6 +122,10 @@ document.addEventListener('DOMContentLoaded' , () => {
             imgTag.src = `images_hero/pic${arr[index]}.jpg`
             card.addEventListener('click' , flipCard)
         })
+    }
+
+    function applyMode(type_mode) {
+
     }
     
     shuffleCard()
