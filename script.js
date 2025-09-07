@@ -2,18 +2,29 @@ document.addEventListener('DOMContentLoaded' , () => {
     const cards = document.querySelectorAll('.card')
     let disableDeck = false;
     let matchedCard = 0
+    let startGame = true
     
-
     function timeCountDown() {
         let timeleft = 60
+        startGame = false
         const countDownEle = document.getElementById('time-count')
         const timer = setInterval(() => {
             timeleft--
+            console.log(timeleft)
             countDownEle.textContent = timeleft
-            
-            if (timeleft == 0) {
-                clearInterval(timer)
-                alert("Time out , you lose!")
+            if (timeleft == 50) {
+                clearInterval(timer);
+                alert("Time out, you lose!");
+                startGame = true;
+                countDownEle.textContent = 60;
+
+                cards.forEach(card => {
+                    card.removeEventListener('click', flipCard);
+                });
+
+                 setTimeout(() => {
+                    shuffleCard();
+                }, 1000);
             }
         },1000)
     }
@@ -22,7 +33,10 @@ document.addEventListener('DOMContentLoaded' , () => {
     
     let cardOne , cardTwo
     function flipCard(e) {
-        timeCountDown()
+        if(startGame) {
+            timeCountDown()
+        }
+        
         let clickedCard = e.target
         if(clickedCard !== cardOne && !disableDeck) {
             clickedCard.classList.add('flip')
@@ -47,7 +61,7 @@ document.addEventListener('DOMContentLoaded' , () => {
                     return shuffleCard();
                 },500)
             }
-            console.log('hey')
+            console.log('match')
             cardOne.removeEventListener('click' , flipCard)
             cardTwo.removeEventListener('click' , flipCard)
             cardOne = cardTwo = ""
@@ -55,13 +69,17 @@ document.addEventListener('DOMContentLoaded' , () => {
         }
        
         setTimeout(() => {
-            cardOne.classList.add('shake')
-            cardTwo.classList.add('shake')
+            if (cardOne && cardTwo) {
+                cardOne.classList.add('shake')
+                cardTwo.classList.add('shake')
+            }
         }, 400)
 
         setTimeout(() => {
-            cardOne.classList.remove('shake' , 'flip')
-            cardTwo.classList.remove('shake' , 'flip')
+            if (cardOne && cardTwo) {
+                cardOne.classList.remove('shake' , 'flip')
+                cardTwo.classList.remove('shake' , 'flip')
+            }
             cardOne = cardTwo = ''
             disableDeck = false
         }, 1200)
