@@ -45,7 +45,7 @@ body { }
     height: fit-content ;
     width: 450px;
     background: white;
-    padding: 25px;
+    padding: 15px 25px;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
@@ -128,7 +128,7 @@ body { }
 
 /* ===== Mode Select ===== */
 .mode-select {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -184,10 +184,18 @@ body { }
 /* แสดงแถบเมื่อ selected */
 .mode-select button.selected::after {
     opacity: 1;
-    width: 90%;
+    width: 100%;
 }
 
 /* สีของแถบตามโหมดที่เลือก */
 .mode-select .easy.selected::after   { background: #10b44b; }
 .mode-select .normal.selected::after { background: #d4c300; }
 .mode-select .hard.selected::after   { background: #b30707; }
+
+
+
+
+
+.mode-select button.selected {
+  pointer-events: none; /* ปิดการ hover + click */
+}
