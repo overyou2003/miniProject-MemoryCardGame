@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded' , () => {
 
                 cards.forEach(card => {
                     card.removeEventListener('click', flipCard);
+                    card.classList.remove('flip')
                 });
 
                  setTimeout(() => {
