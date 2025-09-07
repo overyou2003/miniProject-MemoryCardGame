@@ -5,13 +5,18 @@ document.addEventListener('DOMContentLoaded' , () => {
     let startGame = true
 
     const buttons = document.querySelectorAll('.mode-select button');
-    buttons.forEach(btn => {
+    buttons.forEach((btn , index) => {
         btn.addEventListener('click' , () => {
             // ลบ selected ออกจากปุ่มอื่น ๆ
-            buttons.forEach(b => b.classList.remove('selected'));
-
+            buttons.forEach(b=> b.classList.remove('selected'));
+            
             // ใส่ selected ให้ปุ่มที่ถูกกด
             btn.classList.add('selected')
+            if (index === 0) {
+                console.log('this is easy one')
+            } else if (index === 1) {
+                console.log('this is normal one')
+            } else console.log('this is hard one')
         })
     })
     

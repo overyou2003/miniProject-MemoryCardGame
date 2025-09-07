@@ -132,6 +132,7 @@ body { }
     display: flex;
     flex-direction: row;
     gap: 10px;
+    user-select: none;
 }
 
 .mode-select button {
