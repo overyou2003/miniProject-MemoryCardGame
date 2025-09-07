@@ -126,8 +126,27 @@ document.addEventListener('DOMContentLoaded' , () => {
 
     
     function modeEasy(pairs) {
-        const cardsContainer = document.querySelector('.cards');
-        cardsContainer.innerHTML = ""; // ล้างเก่าออกก่อน
+        console.log('easy')
+        // const cardsContainer = document.querySelector('.cards');
+        // cardsContainer.innerHTML = ""; // ล้างเก่าออกก่อน
+
+        // // สร้าง array ตัวเลขซ้ำตามจำนวน pairs
+        // let arr = [];
+        // for (let i = 1; i <= pairs; i++) arr.push(i, i);
+        // arr.sort(() => Math.random() > 0.5 ? 1 : -1);
+
+        // arr.forEach(num => {
+        //     const li = document.createElement('li');
+        //     li.className = "card";
+        //     li.innerHTML = `
+        //     <div class="view front-view">
+        //         <span class="material-icons">question_mark</span>
+        //     </div>
+        //     <div class="view back-view">
+        //         <img src="images_hero/pic${num}.jpg" alt="card-img">
+        //     </div>`;
+        //     cardsContainer.appendChild(li);
+        // });
     }
 
     function modeNormal(pairs) {
@@ -138,5 +157,5 @@ document.addEventListener('DOMContentLoaded' , () => {
 
     }
     
-    shuffleCard()
+    modeEasy(8)
 })
