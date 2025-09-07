@@ -188,9 +188,9 @@ body { }
 }
 
 /* สีของแถบตามโหมดที่เลือก */
-.mode-select .easy.selected::after   { background: #10b44b; }
-.mode-select .normal.selected::after { background: #d4c300; }
-.mode-select .hard.selected::after   { background: #b30707; }
+.mode-select .easy.selected::after   { background: #4edf5a; }
+.mode-select .normal.selected::after { background: #f1e148; }
+.mode-select .hard.selected::after   { background: #db5858; }
 
 
 
