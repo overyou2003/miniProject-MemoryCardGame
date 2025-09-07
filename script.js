@@ -4,9 +4,25 @@ document.addEventListener('DOMContentLoaded' , () => {
     let matchedCard = 0
     
 
+    function timeCountDown() {
+        let timeleft = 60
+        const countDownEle = document.getElementById('time-count')
+        const timer = setInterval(() => {
+            timeleft--
+            countDownEle.textContent = timeleft
+            
+            if (timeleft == 0) {
+                clearInterval(timer)
+                alert("Time out , you lose!")
+            }
+        },1000)
+    }
+    
+
     
     let cardOne , cardTwo
     function flipCard(e) {
+        timeCountDown()
         let clickedCard = e.target
         if(clickedCard !== cardOne && !disableDeck) {
             clickedCard.classList.add('flip')
