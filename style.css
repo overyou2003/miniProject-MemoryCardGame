@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -6,9 +7,7 @@
     box-sizing: border-box;
 }
 
-body {
-    
-}
+body { }
 
 .text-title {
     background: rgba(10, 0, 0, 0.158);
@@ -88,7 +87,6 @@ body {
     transition: transform 0.25s linear;
 }
 
-
 .card .front-view span {
     font-size: 40px;
     color: rgb(57, 101, 248);
@@ -111,31 +109,15 @@ body {
 }
 
 @keyframes shake {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    20% {
-        transform: translateX(-13px);
-    }
-    40% {
-        transform: translateX(13px);
-    }
-    60% {
-        transform: translateX(-8px);
-    }
-    80% {
-        transform: translateX(8px);
-    }
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-13px); }
+    40% { transform: translateX(13px); }
+    60% { transform: translateX(-8px); }
+    80% { transform: translateX(8px); }
 }
 
-
-.timer {
-    
-}
-
-.point {
-
-}
+.timer { }
+.point { }
 
 .footer-content {
     font-size: large;
@@ -144,15 +126,16 @@ body {
     margin-top: 20px;
 }
 
+/* ===== Mode Select ===== */
 .mode-select {
     margin-bottom: 20px;
     display: flex;
-    flex-direction: row; /* เรียงปุ่มลงล่าง */
+    flex-direction: row;
     gap: 10px;
 }
 
 .mode-select button {
-    width: 100%;              /* เต็มความกว้างของ wrapper */
+    width: 100%;
     padding: 10px;
     border: none;
     border-radius: 8px;
@@ -161,33 +144,50 @@ body {
     cursor: pointer;
     transition: 0.2s;
     font-size: 16px;
+
+    /* สำหรับแถบสีใต้ปุ่ม */
+    position: relative;
+    overflow: visible;
 }
 
-.mode-select .easy {
-    background-color: #4edf5a;
+/* สีพื้นของแต่ละโหมด */
+.mode-select .easy   { background-color: #4edf5a; }
+.mode-select .normal { background-color: #f1e148; }
+.mode-select .hard   { background-color: #db5858; }
+
+/* Hover */
+.mode-select .easy:hover   { background-color: #03740d; }
+.mode-select .normal:hover { background-color: #bdaa00; }
+.mode-select .hard:hover   { background-color: #6e0303; }
+
+/* ปิดเอฟเฟกต์เดิมตอน selected */
+.mode-select button.selected {
+    box-shadow: none;
+    transform: none;
 }
 
-.mode-select .normal {
-    background-color: #f1e148;
+/* แถบสีใต้ปุ่ม (หนาแบบแท่ง) */
+.mode-select button::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -12px;         /* ระยะห่างจากปุ่ม */
+    width: 80%;           /* ยาวเท่า 80% ของปุ่ม */
+    height: 8px;          /* ความหนาของแถบ */
+    border-radius: 6px;
+    background: transparent;
+    opacity: 0;
+    transition: opacity .2s, width .2s;
 }
 
-.mode-select .hard {
-    background-color: #db5858;
+/* แสดงแถบเมื่อ selected */
+.mode-select button.selected::after {
+    opacity: 1;
+    width: 90%;
 }
 
-.mode-select .easy:hover {
-    background-color: #03740d;
-}
-
-.mode-select .normal:hover {
-    background-color: #bdaa00;
-}
-
-.mode-select .hard:hover {
-    background-color: #6e0303;
-}
-
-
-
-
-
+/* สีของแถบตามโหมดที่เลือก */
+.mode-select .easy.selected::after   { background: #10b44b; }
+.mode-select .normal.selected::after { background: #d4c300; }
+.mode-select .hard.selected::after   { background: #b30707; }
