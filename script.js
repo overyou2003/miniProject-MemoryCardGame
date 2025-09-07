@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded' , () => {
             // selected mode 
             if (index === 0) {
                 console.log('this is easy one')
-                applyMode('easy')
+                modeEasy(8)
                 
             } else if (index === 1) {
                 console.log('this is normal one')
-                applyMode('normal')
+                modeNormal(10)
             } else {
                 console.log('this is hard one')
-                applyMode('hard')
+                modeHard(12)
             }
         })
     })
@@ -124,7 +124,17 @@ document.addEventListener('DOMContentLoaded' , () => {
         })
     }
 
-    function applyMode(type_mode) {
+    
+    function modeEasy(pairs) {
+        const cardsContainer = document.querySelector('.cards');
+        cardsContainer.innerHTML = ""; // ล้างเก่าออกก่อน
+    }
+
+    function modeNormal(pairs) {
+
+    }
+
+    function modeHard(pairs) {
 
     }
     
