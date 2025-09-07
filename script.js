@@ -3,6 +3,17 @@ document.addEventListener('DOMContentLoaded' , () => {
     let disableDeck = false;
     let matchedCard = 0
     let startGame = true
+
+    const buttons = document.querySelectorAll('.mode-select button');
+    buttons.forEach(btn => {
+        btn.addEventListener('click' , () => {
+            // ลบ selected ออกจากปุ่มอื่น ๆ
+            buttons.forEach(b => b.classList.remove('selected'));
+
+            // ใส่ selected ให้ปุ่มที่ถูกกด
+            btn.classList.add('selected')
+        })
+    })
     
     function timeCountDown() {
         let timeleft = 60
@@ -87,7 +98,8 @@ document.addEventListener('DOMContentLoaded' , () => {
     }
 
     function shuffleCard() {
-        console.log('you finished')
+
+        console.log('play game')
         matchedCard = 0
         cardOne = cardTwo = ''
         disableDeck = false
