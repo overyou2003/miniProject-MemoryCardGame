@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded' , () => {
     const gmCard  = modal.querySelector('.gm-card');
     const gmIcon = document.getElementById('gm-icon')
     const gmTitle = document.getElementById('gm-title')
+    const gmSub = document.getElementById('gm-sub')
 
     function showGameOver(currentPairs){
         gmCard.classList.remove('win');
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded' , () => {
         modal.hidden = false;
         gmIcon.textContent = '🏆'
         gmTitle.textContent = 'You Win!'
+        gmSub.childNodes[0].textContent = 'Congratulations! You matched '
         gmScore.textContent = finalPairs;
         // SFX.play('win'); // คุณมีอยู่แล้ว
     }
@@ -43,7 +45,8 @@ document.addEventListener('DOMContentLoaded' , () => {
         // รีสตาร์ทเกม
         shuffleCard();
     });
-    document.getElementById('gm-close').addEventListener('click', hideModal);
+
+    //document.getElementById('gm-close').addEventListener('click', hideModal);
 
     // ปิดด้วย ESC
     window.addEventListener('keydown', (e) => {
@@ -226,25 +229,23 @@ function animateScore(delta = 1) {
         } 
     }
 
+    const pointCountEle = document.getElementById('point-count')
     function matchCards(img1 , img2) {
         
         if (img1 === img2) {
             matchedCard++
-            const pointCountEle = document.getElementById('point-count')
             pointCountEle.textContent = matchedCard
             animateScore(1);
             if (matchedCard === 8) {
                 setTimeout(() => {
                     SFX.play('win')
+                    BGM.stop()
+                    countDownEle.textContent = 60;
+                    pointCountEle.textContent = 0;
+                    clearInterval(timer);
                     showWin(matchedCard)
-                },1000)
+                },500)
                 console.log('WIN')
-                clearInterval(timer);
-                countDownEle.textContent = 60;
-                pointCountEle.textContent = 0;
-                setTimeout(() => {
-                    return shuffleCard();
-                },3300)
             }
             console.log('match')
             setTimeout(() => {
