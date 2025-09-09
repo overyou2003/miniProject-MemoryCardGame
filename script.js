@@ -11,13 +11,15 @@ document.addEventListener('DOMContentLoaded' , () => {
     const modal = document.getElementById('gameModal');
     const gmScore = document.getElementById('gm-score');
     const gmCard  = modal.querySelector('.gm-card');
+    const gmIcon = document.getElementById('gm-icon')
+    const gmTitle = document.getElementById('gm-title')
 
     function showGameOver(currentPairs){
         gmCard.classList.remove('win');
         modal.hidden = false;
         gmScore.textContent = currentPairs;
         // โฟกัสปุ่มเล่นใหม่
-        setTimeout(()=> document.getElementById('gm-retry').focus(), 0);
+        setTimeout(()=> document.getElementById('gm-retry'), 0);
         // เล่นเสียง (มีอยู่แล้วในโค้ดคุณ)
         // SFX.play('gameover');
     }
@@ -25,6 +27,8 @@ document.addEventListener('DOMContentLoaded' , () => {
     function showWin(finalPairs){
         gmCard.classList.add('win');
         modal.hidden = false;
+        gmIcon.textContent = '🏆'
+        gmTitle.textContent = 'You Win!'
         gmScore.textContent = finalPairs;
         // SFX.play('win'); // คุณมีอยู่แล้ว
     }
@@ -173,7 +177,7 @@ function animateScore(delta = 1) {
                 SFX.play('timeout')
             }
             countDownEle.textContent = timeleft
-            if (timeleft == 50) {
+            if (timeleft == 0) {
                 BGM.stop()
                 clearInterval(timer);
                 SFX.play('gameover')
@@ -232,6 +236,7 @@ function animateScore(delta = 1) {
             if (matchedCard === 8) {
                 setTimeout(() => {
                     SFX.play('win')
+                    showWin(matchedCard)
                 },1000)
                 console.log('WIN')
                 clearInterval(timer);
