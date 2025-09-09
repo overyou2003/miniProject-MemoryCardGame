@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded' , () => {
     }
 
     function matchCards(img1 , img2) {
+        
         if (img1 === img2) {
             matchedCard++
             const pointCountEle = document.getElementById('point-count')
@@ -83,6 +84,8 @@ document.addEventListener('DOMContentLoaded' , () => {
             if (matchedCard === 8) {
                 console.log('WIN')
                 clearInterval(timer);
+                countDownEle.textContent = 60;
+                pointCountEle.textContent = 0;
                 setTimeout(() => {
                     return shuffleCard();
                 },500)
