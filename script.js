@@ -4,34 +4,34 @@ document.addEventListener('DOMContentLoaded' , () => {
     let matchedCard = 0
     let startGame = true
 
-    const buttons = document.querySelectorAll('.mode-select button');
-    buttons.forEach((btn , index) => {
-        btn.addEventListener('click' , () => {
-            // ลบ selected ออกจากปุ่มอื่น ๆ
-            buttons.forEach(b=> b.classList.remove('selected'));
+    // const buttons = document.querySelectorAll('.mode-select button');
+    // buttons.forEach((btn , index) => {
+    //     btn.addEventListener('click' , () => {
+    //         // ลบ selected ออกจากปุ่มอื่น ๆ
+    //         buttons.forEach(b=> b.classList.remove('selected'));
             
-            // ใส่ selected ให้ปุ่มที่ถูกกด
-            btn.classList.add('selected')
-            // selected mode 
-            if (index === 0) {
-                console.log('this is easy one')
-                modeEasy(8)
+    //         // ใส่ selected ให้ปุ่มที่ถูกกด
+    //         btn.classList.add('selected')
+    //         // selected mode 
+    //         if (index === 0) {
+    //             console.log('this is easy one')
+    //             modeEasy(8)
                 
-            } else if (index === 1) {
-                console.log('this is normal one')
-                modeNormal(10)
-            } else {
-                console.log('this is hard one')
-                modeHard(12)
-            }
-        })
-    })
-    
+    //         } else if (index === 1) {
+    //             console.log('this is normal one')
+    //             modeNormal(10)
+    //         } else {
+    //             console.log('this is hard one')
+    //             modeHard(12)
+    //         }
+    //     })
+    // })
+    let timer = null
     function timeCountDown() {
         let timeleft = 60
         startGame = false
         const countDownEle = document.getElementById('time-count')
-        const timer = setInterval(() => {
+        timer = setInterval(() => {
             timeleft--
             console.log(timeleft)
             countDownEle.textContent = timeleft
@@ -81,6 +81,8 @@ document.addEventListener('DOMContentLoaded' , () => {
             const pointCountEle = document.getElementById('point-count')
             pointCountEle.textContent = matchedCard
             if (matchedCard === 8) {
+                clearInterval(timer);
+                timer = null
                 setTimeout(() => {
                     return shuffleCard();
                 },500)
@@ -157,5 +159,5 @@ document.addEventListener('DOMContentLoaded' , () => {
 
     }
     
-    modeEasy(8)
+    shuffleCard()
 })

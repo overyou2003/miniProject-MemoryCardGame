@@ -135,6 +135,7 @@ body { }
     margin-top: 20px;
 }
 
+
 /* ===== Mode Select ===== */
 .mode-select {
     margin-bottom: 25px;
@@ -209,3 +210,4 @@ body { }
 .mode-select button.selected {
   pointer-events: none; /* ปิดการ hover + click */
 }
+
