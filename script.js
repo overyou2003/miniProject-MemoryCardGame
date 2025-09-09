@@ -273,6 +273,7 @@ function animateScore(delta = 1) {
             if (matchedCard === 8) {
                 setTimeout(() => {
                     SFX.play('win')
+                    startGame = true
                     BGM.stop()
                     countDownEle.textContent = 60;
                     pointCountEle.textContent = 0;
