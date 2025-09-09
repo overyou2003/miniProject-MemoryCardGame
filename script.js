@@ -226,7 +226,7 @@ function animateScore(delta = 1) {
                 SFX.play('timeout')
             }
             countDownEle.textContent = timeleft
-            if (timeleft == 50) {
+            if (timeleft == 0) {
                 BGM.stop()
                 clearInterval(timer);
                 countDownEle.textContent = 60;
