@@ -180,7 +180,7 @@ function animateScore(delta = 1) {
                 SFX.play('timeout')
             }
             countDownEle.textContent = timeleft
-            if (timeleft == 0) {
+            if (timeleft == 58) {
                 BGM.stop()
                 clearInterval(timer);
                 SFX.play('gameover')
