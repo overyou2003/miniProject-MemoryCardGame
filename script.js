@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded' , () => {
     //     })
     // })
     let timer = null
+    const countDownEle = document.getElementById('time-count')
     function timeCountDown() {
         let timeleft = 60
         startGame = false
-        const countDownEle = document.getElementById('time-count')
         timer = setInterval(() => {
             timeleft--
             console.log(timeleft)
@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded' , () => {
             const pointCountEle = document.getElementById('point-count')
             pointCountEle.textContent = matchedCard
             if (matchedCard === 8) {
+                console.log('WIN')
                 clearInterval(timer);
-                timer = null
                 setTimeout(() => {
                     return shuffleCard();
                 },500)
