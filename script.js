@@ -4,6 +4,49 @@ document.addEventListener('DOMContentLoaded' , () => {
     let matchedCard = 0
     let startGame = true
 
+    // ใส่จำนวนคู่ทั้งหมดของบอร์ดปัจจุบัน
+    const TOTAL_PAIRS = document.querySelectorAll('.card').length / 2;
+    document.getElementById('gm-total').textContent = TOTAL_PAIRS;
+
+    const modal = document.getElementById('gameModal');
+    const gmScore = document.getElementById('gm-score');
+    const gmCard  = modal.querySelector('.gm-card');
+
+    function showGameOver(currentPairs){
+        gmCard.classList.remove('win');
+        modal.hidden = false;
+        gmScore.textContent = currentPairs;
+        // โฟกัสปุ่มเล่นใหม่
+        setTimeout(()=> document.getElementById('gm-retry').focus(), 0);
+        // เล่นเสียง (มีอยู่แล้วในโค้ดคุณ)
+        // SFX.play('gameover');
+    }
+
+    function showWin(finalPairs){
+        gmCard.classList.add('win');
+        modal.hidden = false;
+        gmScore.textContent = finalPairs;
+        // SFX.play('win'); // คุณมีอยู่แล้ว
+    }
+
+    function hideModal(){
+        modal.hidden = true;
+    }
+
+    // ปุ่มในโมดัล
+    document.getElementById('gm-retry').addEventListener('click', () => {
+        hideModal();
+        // รีสตาร์ทเกม
+        shuffleCard();
+    });
+    document.getElementById('gm-close').addEventListener('click', hideModal);
+
+    // ปิดด้วย ESC
+    window.addEventListener('keydown', (e) => {
+        if (!modal.hidden && e.key === 'Escape') hideModal();
+    });
+
+
     // SOUND EFFECTS
     const SFX = (() => {
   const files = {
@@ -130,20 +173,26 @@ function animateScore(delta = 1) {
                 SFX.play('timeout')
             }
             countDownEle.textContent = timeleft
-            if (timeleft == 0) {
+            if (timeleft == 50) {
                 BGM.stop()
                 clearInterval(timer);
                 SFX.play('gameover')
                 //alert("Time out, you lose!");
                 startGame = true;
-                countDownEle.textContent = 60;
+                showGameOver(matchedCard)
+                // กันคนคลิกตอนเวลาหมด
                 cards.forEach(card => {
-                    card.removeEventListener('click', flipCard);
-                    card.classList.remove('flip')
-                });
-
+                        card.removeEventListener('click', flipCard);
+                    });
                  setTimeout(() => {
-                    shuffleCard();
+                    cards.forEach(card => {
+                        // flip กลับ
+                        card.classList.remove('flip')
+                    });
+                    countDownEle.textContent = 60;
+                    setTimeout(() => {
+                        shuffleCard();
+                    },500)
                 }, 3000);
             }
         },1000)

@@ -381,3 +381,93 @@ body { }
   80%{ transform: translateX(6px) rotate(.6deg) }
 }
 
+
+.footer-content{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-size:16px; margin-top:12px;
+}
+
+/* ชิปสถานะ */
+.chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 12px; border-radius:999px;
+  background:#f6f8ff; border:1px solid #e7ebff;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+.chip .icon{ font-size:16px; opacity:.9 }
+.chip .value{ font-weight:700; font-variant-numeric: tabular-nums; }
+
+/* สีตามสถานะเวลา */
+.chip-time.ok    { background:#eef8f1; border-color:#d9efdf; color:#145c2e; }
+.chip-time.warn  { background:#fff6e8; border-color:#ffe6bf; color:#7a4b00; }
+.chip-time.dang  { background:#ffeaea; border-color:#ffd2d2; color:#8a0b0b; }
+
+/* pulse ตอนวิกฤต */
+.chip-time.pulse{ animation:pulse 1s ease-in-out infinite; }
+@keyframes pulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(255,80,80,.35) }
+  50%{ box-shadow:0 0 0 8px rgba(255,80,80,0) }
+}
+
+/* แถบเวลา */
+.timer-track{
+  flex:1 1 100%; height:6px; background:#e9edf9; border-radius:999px; overflow:hidden;
+}
+.timer-bar{
+  height:100%; width:100%;
+  background:linear-gradient(90deg,#4edf5a,#ffb15a,#ff6a6a);
+  transition: width .25s linear;
+}
+
+
+/* ===== Game Modal ===== */
+.gm-overlay[hidden]{ display:none; }
+.gm-overlay{
+  position:fixed; inset:0; z-index:50;
+  display:grid; place-items:center;
+  background: radial-gradient(1200px 800px at 50% 30%, rgba(255,255,255,.10), transparent 60%),
+              rgba(9,11,31,.55);
+  backdrop-filter: blur(6px) saturate(1.1);
+  animation: gm-fade .2s ease-out;
+}
+@keyframes gm-fade{ from{opacity:0} to{opacity:1} }
+
+.gm-card{
+  width:min(90vw, 420px);
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(248,250,255,.92));
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  padding:22px 22px 16px;
+  text-align:center;
+  animation: gm-pop .18s ease-out;
+}
+@keyframes gm-pop{ from{ transform:scale(.92); opacity:.0 } to{ transform:scale(1); opacity:1 } }
+
+.gm-icon{
+  width:64px; height:64px; margin:0 auto 8px;
+  display:grid; place-items:center; font-size:34px;
+  background: radial-gradient(circle at 30% 30%, #ff9f9f, #ff6a6a);
+  color:#fff; border-radius:14px;
+  box-shadow: 0 10px 20px rgba(255,106,106,.35);
+}
+.gm-title{ font-size:24px; margin:6px 0 4px; }
+.gm-sub{ color:#333; opacity:.85; margin:0 6px 16px; }
+
+.gm-actions{ display:flex; gap:10px; justify-content:center; }
+.gm-btn{
+  padding:10px 14px; border:none; border-radius:10px; cursor:pointer;
+  font-weight:700; box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  background: linear-gradient(90deg, #6ea8ff, #3965f8); color:#fff;
+}
+.gm-btn:hover{ transform: translateY(-1px); }
+.gm-ghost{
+  background:#f4f6ff; color:#223; border:1px solid #e7ebff;
+}
+
+/* เวอร์ชันชนะ (ถ้าอยากใช้ภายหลัง) */
+.gm-card.win .gm-icon{
+  background: radial-gradient(circle at 30% 30%, #86f7b9, #32c766);
+  box-shadow: 0 10px 20px rgba(50,199,102,.35);
+}
+.gm-card.win .gm-title{ color:#1c6b3e; }
