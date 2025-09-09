@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded' , () => {
         gmCard.classList.remove('win');
         modal.hidden = false;
         gmScore.textContent = currentPairs;
+        gmTitle.textContent = 'Game Over'
+        gmIcon.textContent = '💀'
+        gmSub.childNodes[0].textContent = 'Time’s up! You matchedgi '
         // โฟกัสปุ่มเล่นใหม่
         setTimeout(()=> document.getElementById('gm-retry'), 0);
         // เล่นเสียง (มีอยู่แล้วในโค้ดคุณ)
