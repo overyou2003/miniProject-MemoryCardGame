@@ -67,6 +67,11 @@ const BGM = (() => {
   };
 })();
 
+// เปลี่ยนแทบปิดเสีัยงเพลง
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) BGM.pause();
+  else BGM.resume();
+})
     // const buttons = document.querySelectorAll('.mode-select button');
     // buttons.forEach((btn , index) => {
     //     btn.addEventListener('click' , () => {
@@ -89,6 +94,8 @@ const BGM = (() => {
     //         }
     //     })
     // })
+
+
     let timer = null
     const countDownEle = document.getElementById('time-count')
     function timeCountDown() {
