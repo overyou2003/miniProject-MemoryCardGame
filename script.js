@@ -42,8 +42,16 @@ document.addEventListener('DOMContentLoaded' , () => {
     // ปุ่มในโมดัล
     document.getElementById('gm-retry').addEventListener('click', () => {
         hideModal();
+        // กันคนคลิกตอนเวลาหมด
+        cards.forEach(card => {
+            card.removeEventListener('click', flipCard);
+            card.classList.remove('flip')
+        });
         // รีสตาร์ทเกม
-        shuffleCard();
+        setTimeout(() => {
+            shuffleCard();
+        },800)
+        
     });
 
     //document.getElementById('gm-close').addEventListener('click', hideModal);
@@ -86,7 +94,7 @@ document.addEventListener('DOMContentLoaded' , () => {
 
 // BGM ประกอบตอนเล่นเกม
 const BGM = (() => {
-  let audio = new Audio('sounds/music.mp3'); // เพลงหลัก
+  let audio = new Audio('sounds/magnetic.mp3'); // เพลงหลัก
   audio.loop = true;      // วนลูป
   audio.volume = 0.02;    // ระดับเสียงเริ่มต้น
   let enabled = true;     // เปิด/ปิดเพลง
@@ -122,6 +130,44 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden) BGM.pause();
   else BGM.resume();
 })
+
+// ===== PLAYLIST (แก้ชื่อไฟล์/เพิ่มเพลงได้ตามต้องการ) =====
+const PLAYLIST = [
+  { title: 'ILLIT - Magnetic', src: 'sounds/magnetic.mp3' },
+  { title: 'NewJeans - Supernatural', src: 'sounds/supernatural.mp3' },
+  { title: 'NewJeans - OMG', src: 'sounds/omg.mp3' },
+];
+
+let trackIndex = 0;
+const titleEl = document.getElementById('bgm-title');
+const prevBtn  = document.getElementById('bgm-prev');
+const nextBtn  = document.getElementById('bgm-next');
+const muteBtn  = document.getElementById('bgm-mute');
+
+function applyTrack(i, autoPlay = true) {
+  trackIndex = (i + PLAYLIST.length) % PLAYLIST.length;
+  const t = PLAYLIST[trackIndex];
+
+  // เปลี่ยนเพลงใน BGM
+  BGM.setTrack(t.src);
+  titleEl.textContent = t.title;
+
+  // ปุ่มเป็น user gesture อยู่แล้ว — เล่นเลยได้ (ผ่าน policy)
+  if (autoPlay) BGM.start();
+}
+
+// ปุ่มก่อน/ถัดไป
+prevBtn.addEventListener('click', () => applyTrack(trackIndex - 1, false));
+nextBtn.addEventListener('click', () => applyTrack(trackIndex + 1, false));
+
+// ปุ่มปิด/เปิดเสียง
+muteBtn.addEventListener('click', () => {
+  const on = BGM.toggle();
+  muteBtn.textContent = on ? '🔊' : '🔇';
+});
+
+// ตั้งค่าเริ่มต้นเป็นเพลงแรก (ยังไม่เล่นจนกดปุ่ม/เริ่มเกม)
+applyTrack(0, /*autoPlay=*/false);
 
 // ทำให้พ่อของ #point-count เป็น container ของเอฟเฟกต์
 const scoreContainer = document.getElementById('point-count').parentElement;
@@ -180,27 +226,15 @@ function animateScore(delta = 1) {
                 SFX.play('timeout')
             }
             countDownEle.textContent = timeleft
-            if (timeleft == 58) {
+            if (timeleft == 50) {
                 BGM.stop()
                 clearInterval(timer);
+                countDownEle.textContent = 60;
+                pointCountEle.textContent = 0;
                 SFX.play('gameover')
                 //alert("Time out, you lose!");
                 startGame = true;
                 showGameOver(matchedCard)
-                // กันคนคลิกตอนเวลาหมด
-                cards.forEach(card => {
-                        card.removeEventListener('click', flipCard);
-                    });
-                 setTimeout(() => {
-                    cards.forEach(card => {
-                        // flip กลับ
-                        card.classList.remove('flip')
-                    });
-                    countDownEle.textContent = 60;
-                    setTimeout(() => {
-                        shuffleCard();
-                    },500)
-                }, 3000);
             }
         },1000)
     }
