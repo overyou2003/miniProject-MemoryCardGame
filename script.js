@@ -128,7 +128,7 @@ const BGM = (() => {
 // เปลี่ยนแทบปิดเสียงเพลง
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) BGM.pause();
-  else BGM.resume();
+  else if (startGame == false) BGM.resume();
 })
 
 // ===== PLAYLIST (แก้ชื่อไฟล์/เพิ่มเพลงได้ตามต้องการ) =====
