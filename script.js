@@ -4,6 +4,69 @@ document.addEventListener('DOMContentLoaded' , () => {
     let matchedCard = 0
     let startGame = true
 
+    // SOUND EFFECTS
+    const SFX = (() => {
+  const files = {
+    gameover:   'sounds/gameover.mp3',
+    flip:    'sounds/flip.mp3',
+    match:   'sounds/match.mp3',
+    wrong:   'sounds/wrong.mp3',
+    win:     'sounds/win.mp3',
+    timeout: 'sounds/timeout.mp3',
+  };
+  const cache = {};
+  let enabled = true;
+  let volume = 0.2;
+
+  for (const [k, url] of Object.entries(files)) {
+    cache[k] = new Audio(url);
+  }
+
+  return {
+    play(name) {
+      if (!enabled || !cache[name]) return;
+      const a = cache[name].cloneNode(true);
+      a.volume = volume;
+      a.play().catch(()=>{}); // กัน error autoplay
+    },
+    toggle(){ enabled = !enabled; return enabled; },
+    setVolume(v){ volume = Math.min(1, Math.max(0, v)); }
+  };
+})();
+
+// BGM ประกอบตอนเล่นเกม
+const BGM = (() => {
+  let audio = new Audio('sounds/music.mp3'); // เพลงหลัก
+  audio.loop = true;      // วนลูป
+  audio.volume = 0.02;    // ระดับเสียงเริ่มต้น
+  let enabled = true;     // เปิด/ปิดเพลง
+  let started = false;    // ยังไม่เริ่มจนกว่าจะมี user gesture
+
+  const ensurePlay = () => audio.play().catch(()=>{ /* เงียบไว้ถ้า autoplay บล็อก */ });
+
+  return {
+    start(track) {        // เริ่มเล่น (เรียกตอนมีการคลิกครั้งแรก)
+      if (track) audio.src = track;
+      started = true;
+      if (enabled) ensurePlay();
+    },
+    pause() { audio.pause(); },
+    resume() { if (enabled && started) ensurePlay(); },
+    stop() { audio.pause(); audio.currentTime = 0; },
+    toggle() {            // ปิด/เปิดเพลง
+      enabled = !enabled;
+      if (!enabled) audio.pause(); else if (started) ensurePlay();
+      return enabled;
+    },
+    setVolume(v) { audio.volume = Math.min(1, Math.max(0, v)); },
+    setTrack(src) {       // ถ้าจะเปลี่ยนเพลงตามโหมด
+      audio.src = src; audio.currentTime = 0;
+      if (enabled && started) ensurePlay();
+    },
+    isEnabled() { return enabled; }
+  };
+})();
+
     // const buttons = document.querySelectorAll('.mode-select button');
     // buttons.forEach((btn , index) => {
     //     btn.addEventListener('click' , () => {
@@ -34,13 +97,16 @@ document.addEventListener('DOMContentLoaded' , () => {
         timer = setInterval(() => {
             timeleft--
             console.log(timeleft)
+            if (timeleft == 5) {
+                SFX.play('timeout')
+            }
             countDownEle.textContent = timeleft
             if (timeleft == 0) {
                 clearInterval(timer);
+                SFX.play('gameover')
                 alert("Time out, you lose!");
                 startGame = true;
                 countDownEle.textContent = 60;
-
                 cards.forEach(card => {
                     card.removeEventListener('click', flipCard);
                     card.classList.remove('flip')
@@ -59,11 +125,13 @@ document.addEventListener('DOMContentLoaded' , () => {
     function flipCard(e) {
         if(startGame) {
             timeCountDown()
+            BGM.start();
         }
         
         let clickedCard = e.target
         if(clickedCard !== cardOne && !disableDeck) {
             clickedCard.classList.add('flip')
+            SFX.play('flip');
             if(!cardOne) {
                 return cardOne = clickedCard;
             }
@@ -82,23 +150,31 @@ document.addEventListener('DOMContentLoaded' , () => {
             const pointCountEle = document.getElementById('point-count')
             pointCountEle.textContent = matchedCard
             if (matchedCard === 8) {
+                setTimeout(() => {
+                    SFX.play('win')
+                },1000)
                 console.log('WIN')
                 clearInterval(timer);
                 countDownEle.textContent = 60;
                 pointCountEle.textContent = 0;
                 setTimeout(() => {
                     return shuffleCard();
-                },500)
+                },3300)
             }
             console.log('match')
+            setTimeout(() => {
+                SFX.play('match')
+            },500)
             cardOne.removeEventListener('click' , flipCard)
             cardTwo.removeEventListener('click' , flipCard)
             cardOne = cardTwo = ""
             return disableDeck = false
         }
-       
+
+        
         setTimeout(() => {
             if (cardOne && cardTwo) {
+                SFX.play('wrong');
                 cardOne.classList.add('shake')
                 cardTwo.classList.add('shake')
             }
