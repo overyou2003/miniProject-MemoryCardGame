@@ -482,4 +482,4 @@ body { }
   width:38px; height:38px; border:none; border-radius:10px; cursor:pointer;
   background:#eef2ff; box-shadow:0 2px 6px rgba(0,0,0,.08);
 }
-#bgm-title{ min-width:120px; max-width:fit-content; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#bgm-title{ min-width:120px; max-width:200; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
