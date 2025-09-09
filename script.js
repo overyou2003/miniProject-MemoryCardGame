@@ -67,11 +67,33 @@ const BGM = (() => {
   };
 })();
 
-// เปลี่ยนแทบปิดเสีัยงเพลง
+// เปลี่ยนแทบปิดเสียงเพลง
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) BGM.pause();
   else BGM.resume();
 })
+
+// ทำให้พ่อของ #point-count เป็น container ของเอฟเฟกต์
+const scoreContainer = document.getElementById('point-count').parentElement;
+scoreContainer.classList.add('score-container');
+
+function animateScore(delta = 1) {
+  const scoreEl = document.getElementById('point-count');
+
+  // เด้งเลข (restart animation)
+  scoreEl.classList.remove('bump');
+  // force reflow เพื่อให้ .bump เล่นซ้ำได้
+  // eslint-disable-next-line no-unused-expressions
+  scoreEl.offsetWidth;
+  scoreEl.classList.add('bump');
+
+  // ทำ +delta ลอยขึ้น
+  const float = document.createElement('span');
+  float.className = 'score-float';
+  float.textContent = (delta > 0 ? `+${delta}` : `${delta}`);
+  scoreContainer.appendChild(float);
+  float.addEventListener('animationend', () => float.remove());
+}
     // const buttons = document.querySelectorAll('.mode-select button');
     // buttons.forEach((btn , index) => {
     //     btn.addEventListener('click' , () => {
@@ -109,9 +131,10 @@ document.addEventListener('visibilitychange', () => {
             }
             countDownEle.textContent = timeleft
             if (timeleft == 0) {
+                BGM.stop()
                 clearInterval(timer);
                 SFX.play('gameover')
-                alert("Time out, you lose!");
+                //alert("Time out, you lose!");
                 startGame = true;
                 countDownEle.textContent = 60;
                 cards.forEach(card => {
@@ -121,7 +144,7 @@ document.addEventListener('visibilitychange', () => {
 
                  setTimeout(() => {
                     shuffleCard();
-                }, 1000);
+                }, 3000);
             }
         },1000)
     }
@@ -156,6 +179,7 @@ document.addEventListener('visibilitychange', () => {
             matchedCard++
             const pointCountEle = document.getElementById('point-count')
             pointCountEle.textContent = matchedCard
+            animateScore(1);
             if (matchedCard === 8) {
                 setTimeout(() => {
                     SFX.play('win')

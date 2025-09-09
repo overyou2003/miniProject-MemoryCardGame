@@ -140,7 +140,7 @@ body { }
     80% { transform: translateX(8px); }
 }
 
-.timer { }
+
 .point { }
 
 .footer-content {
@@ -218,11 +218,166 @@ body { }
 .mode-select .normal.selected::after { background: #f1e148; }
 .mode-select .hard.selected::after   { background: #db5858; }
 
-
-
-
-
 .mode-select button.selected {
   pointer-events: none; /* ปิดการ hover + click */
+}
+
+
+/* กล่องคะแนนให้เป็น anchor ของเอฟเฟกต์ลอย */
+.score-container { position: relative; display: inline-block; }
+
+/* เด้งเลข (bump) ตอนเพิ่มคะแนน */
+#point-count { 
+    color: rgb(21, 158, 2);
+    font-weight: bold;
+}
+
+
+#point-count.bump {
+  animation: score-bump .35s ease;
+}
+@keyframes score-bump {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* +1 ลอยขึ้น */
+.score-float {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -6px;              /* จุดเริ่มใกล้เลขคะแนน */
+  font-weight: 800;
+  color: #4edf5a;         /* เขียวแบบได้คะแนน */
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+  animation: score-float 700ms ease-out forwards;
+}
+@keyframes score-float {
+  0%   { opacity: 0; transform: translate(-50%, 0) scale(.85); }
+  20%  { opacity: 1; transform: translate(-50%, -6px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -28px) scale(.95); }
+}
+
+:root{
+  --bg1:#95acf7; --bg2:#0b0564;
+  --card-radius:14px;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,.15);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.18);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,.22);
+  --accent:#3965f8;
+}
+
+/* พื้นหลังให้มีสปอตไลท์กลางจอ */
+.container{
+  background:
+    radial-gradient(800px 600px at 50% 30%, rgba(255,255,255,.12), transparent 60%),
+    linear-gradient(135deg, var(--bg1), var(--bg2));
+}
+
+/* กล่องเกมแบบ glass นิด ๆ */
+.wrapper{
+  width: clamp(320px, 90vw, 520px);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(6px);
+}
+
+/* ใช้ CSS Grid จัดบอร์ดให้เป๊ะ */
+.cards{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.cards .card{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: none;
+  border-radius: var(--card-radius);
+  transition: transform .15s ease, box-shadow .15s ease, filter .2s ease;
+}
+.cards .card:hover{
+  transform: translateY(-4px) scale(1.02);
+  z-index: 2;
+}
+
+/* แผ่นหน้า/หลังให้ดูนุ่ม + มีขอบจาง ๆ */
+.cards .card .view{
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,.06);
+  background: linear-gradient(180deg,#fff, #f6f7fb);
+}
+.card .back-view img{
+  max-width: 92%;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+
+/* สี ? ให้ชัดขึ้น */
+.card .front-view span{
+  font-size: 42px;
+  color: var(--accent);
+  text-shadow: 0 1px 0 #fff;
+}
+
+/* ชื่อเกม */
+.title{
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: .4px;
+}
+
+/* footer status เป็นชิป + แถบเวลา */
+.footer-content{
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+.chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 6px 10px; border-radius: 999px;
+  background: #f4f6ff; color:#223; border:1px solid #e8ebff;
+  box-shadow: var(--shadow-sm);
+}
+.chip .icon{ font-size: 16px; opacity:.9 }
+
+/* progress bar ใต้ชิปเวลา */
+.timer-track{
+  position: relative; width: 100%; height: 6px; margin-top: 10px;
+  background: #e9edf9; border-radius: 999px; overflow: hidden;
+}
+.timer-bar{
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg,#ffb15a,#ff6a6a);
+  border-radius: 999px;
+  transition: width .3s linear;
+}
+
+/* เอฟเฟกต์เด้งคะแนน + +1 ลอย (จากที่คุยกันก่อนหน้า) */
+.score-container{ position:relative; display:inline-block; }
+#point-count.bump{ animation: score-bump .35s ease; }
+@keyframes score-bump{ 0%{transform:scale(1)} 30%{transform:scale(1.25)} 100%{transform:scale(1)} }
+.score-float{
+  position:absolute; left:50%; transform:translateX(-50%);
+  top:-6px; font-weight:800; color:#32c766; pointer-events:none;
+  text-shadow:0 1px 2px rgba(0,0,0,.2);
+  animation: score-float 700ms ease-out forwards;
+}
+@keyframes score-float{
+  0%{opacity:0; transform:translate(-50%,0) scale(.85)}
+  20%{opacity:1; transform:translate(-50%,-6px) scale(1)}
+  100%{opacity:0; transform:translate(-50%,-28px) scale(.95)}
+}
+
+
+/* เขย่าให้เนียนขึ้นนิด */
+@keyframes shake{
+  0%,100%{ transform: translateX(0) rotate(0) }
+  20%{ transform: translateX(-10px) rotate(-1deg) }
+  40%{ transform: translateX(10px) rotate(1deg) }
+  60%{ transform: translateX(-6px) rotate(-.6deg) }
+  80%{ transform: translateX(6px) rotate(.6deg) }
 }
 
